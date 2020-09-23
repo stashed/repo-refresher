@@ -18,6 +18,11 @@ refresh() {
     git clone --no-tags --no-recurse-submodules --depth=1 https://${GITHUB_USER}:${GITHUB_TOKEN}@$1.git
     cd $(ls -b1)
     git checkout -b $PR_BRANCH
+    sed -i 's/gcr.io\/distroless\/base/gcr.io\/distroless\/base-debian10/g' Makefile
+    sed -i 's/gcr.io\/distroless\/base-debian10-debian10/gcr.io\/distroless\/base-debian10/g' Makefile
+    sed -i 's/gcr.io\/distroless\/static/gcr.io\/distroless\/static-debian10/g' Makefile
+    sed -i 's/gcr.io\/distroless\/static-debian10-debian10/gcr.io\/distroless\/static-debian10/g' Makefile
+    sed -i 's/chart-testing:v3.0.0-rc.1/chart-testing:v3.0.0/g' Makefile
     sed -i 's/?=\ 1.14/?=\ 1.15/g' Makefile
     pushd .github/workflows/
     sed -i 's/Go\ 1.14/Go 1.15/g' *
