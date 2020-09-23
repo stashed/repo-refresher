@@ -18,6 +18,7 @@ refresh() {
     git clone --no-tags --no-recurse-submodules --depth=1 https://${GITHUB_USER}:${GITHUB_TOKEN}@$1.git
     cd $(ls -b1)
     git checkout -b $PR_BRANCH
+    sed -i 's/busybox:1.31.1/busybox:latest/g' Makefile
     sed -i 's/alpine:3.11/alpine:latest/g' Makefile
     sed -i 's/alpine:3.10/alpine:latest/g' Makefile
     sed -i 's/debian:stretch/debian:buster/g' Makefile
