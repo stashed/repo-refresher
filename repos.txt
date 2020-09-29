@@ -8,10 +8,10 @@ github.com/appscodelabs/gh-ci-webhook
 github.com/appscodelabs/gh-tools
 github.com/appscodelabs/github-pr-resource
 github.com/appscodelabs/go-build-template
+github.com/appscodelabs/go-seed-cli
 github.com/appscodelabs/gomod-gen
 github.com/appscodelabs/gomod-refresher
 github.com/appscodelabs/gomod-tools
-github.com/appscodelabs/go-seed-cli
 github.com/appscodelabs/hugo-tools
 github.com/appscodelabs/ltag
 github.com/appscodelabs/release-automaton
@@ -64,6 +64,7 @@ github.com/kmodules/security-policy-api
 github.com/kmodules/shared-informer
 github.com/kmodules/webhook-runtime
 github.com/kubedb/apimachinery
+github.com/kubedb/CHANGELOG
 github.com/kubedb/cli
 github.com/kubedb/docs
 github.com/kubedb/elasticsearch
@@ -89,6 +90,7 @@ github.com/kubepack/kubepack
 github.com/kubepack/lib-helm
 github.com/kubeshield/identity-server
 github.com/kubeshield/installer
+github.com/kubevault/CHANGELOG
 github.com/kubevault/csi-driver
 github.com/kubevault/docs
 github.com/kubevault/installer
@@ -99,6 +101,7 @@ github.com/searchlight/installer
 github.com/stashed/apimachinery
 github.com/stashed/bundles
 github.com/stashed/catalog
+github.com/stashed/CHANGELOG
 github.com/stashed/cli
 github.com/stashed/cluster
 github.com/stashed/docs

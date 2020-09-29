@@ -31,6 +31,7 @@ refresh() {
     pushd .github/workflows/
     sed -i 's/Go\ 1.14/Go 1.15/g' *
     sed -i 's/go-version:\ 1.14/go-version:\ 1.15/g' *
+    sed -i 's/release-automaton\/releases\/download\/v0.0.27\//release-automaton\/releases\/download\/v0.0.28\//g' *
     popd
     [ -z "$2" ] || (
         echo "$2"
