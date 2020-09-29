@@ -1,6 +1,7 @@
 github.com/appscode/guard
 github.com/appscode/kubed
 github.com/appscode/kubedb-enterprise
+github.com/appscode/stash-enterprise
 github.com/appscodelabs/discord-mgr
 github.com/appscodelabs/docs-aggregator
 github.com/appscodelabs/gh-ci-webhook
@@ -20,7 +21,6 @@ github.com/bytebuilders/client
 github.com/bytebuilders/deploy-button
 github.com/bytebuilders/govanityurls
 github.com/bytebuilders/license-verifier
-github.com/bytebuilders/pharmer-cloud
 github.com/bytebuilders/resource-model
 github.com/gomodules/apiversion
 github.com/gomodules/blobfs
@@ -103,7 +103,6 @@ github.com/stashed/cli
 github.com/stashed/cluster
 github.com/stashed/docs
 github.com/stashed/elasticsearch
-github.com/stashed/enterprise
 github.com/stashed/installer
 github.com/stashed/mariadb
 github.com/stashed/mongodb
