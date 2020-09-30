@@ -117,3 +117,12 @@ github.com/stashed/stash
 github.com/voyagermesh/docs
 github.com/voyagermesh/installer
 github.com/voyagermesh/voyager
+github.com/appscode/hugo-appscode
+github.com/appscode/hugo-kubeci
+github.com/appscode/hugo-kubeform
+github.com/appscode/hugo-kubeshield
+github.com/appscode/hugo-pharmer
+github.com/appscode/hugo-voyagermesh
+github.com/kubedb/website
+github.com/kubevault/website
+github.com/stashed/website
