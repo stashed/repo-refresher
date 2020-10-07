@@ -28,6 +28,10 @@ refresh() {
     sed -i 's/gcr.io\/distroless\/static-debian10-debian10/gcr.io\/distroless\/static-debian10/g' Makefile
     sed -i 's/chart-testing:v3.0.0-rc.1/chart-testing:v3.0.0/g' Makefile
     sed -i 's/?=\ 1.14/?=\ 1.15/g' Makefile
+    rm -rf hack/kubernetes/storageclass
+    if test -f "hack/kubernetes/kind.yaml"; then
+        cp $GITHUB_WORKSPACE/kind.yaml hack/kubernetes/kind.yaml
+    fi
     pushd .github/workflows/
     sed -i 's/Go\ 1.14/Go\ 1.15/g' *
     sed -i 's/go-version:\ 1.14/go-version:\ 1.15/g' *
