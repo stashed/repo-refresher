@@ -33,6 +33,12 @@ refresh() {
         cp $GITHUB_WORKSPACE/kind.yaml hack/kubernetes/kind.yaml
     fi
     pushd .github/workflows/
+    # update engineerd/setup-kind
+    sed -i 's|engineerd/setup-kind@v0.1.0|engineerd/setup-kind@v0.4.0|g' *
+    sed -i 's|engineerd/setup-kind@v0.3.0|engineerd/setup-kind@v0.4.0|g' *
+    sed -i 's|version: v0.7.0|version: v0.9.0|g' *
+    sed -i 's|version: v0.8.1|version: v0.9.0|g' *
+    # update GO
     sed -i 's/Go\ 1.14/Go\ 1.15/g' *
     sed -i 's/go-version:\ 1.14/go-version:\ 1.15/g' *
     sed -i 's/go-version:\ ^1.14/go-version:\ ^1.15/g' *
