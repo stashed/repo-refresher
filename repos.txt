@@ -81,10 +81,13 @@ github.com/kubedb/postgres
 github.com/kubedb/proxysql
 github.com/kubedb/redis
 github.com/kubedb/tests
+github.com/kubeform/bundles
+github.com/kubeform/CHANGELOG
 github.com/kubeform/docs
 github.com/kubeform/installer
 github.com/kubeform/kfc
 github.com/kubeform/kubeform
+github.com/kubeform/website
 github.com/kubepack/installer
 github.com/kubepack/kubepack
 github.com/kubepack/lib-helm
