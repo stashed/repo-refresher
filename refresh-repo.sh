@@ -33,15 +33,15 @@ refresh() {
         cp $GITHUB_WORKSPACE/kind.yaml hack/kubernetes/kind.yaml
     fi
 
-    if grep -q "Apache" hack/scripts/update-release-tracker.sh &> /dev/null; then
-        cp $GITHUB_WORKSPACE/hack/scripts/update-release-tracker/apache.sh hack/scripts/update-release-tracker.sh
-    fi
-    if grep -q "AppsCode-Community" hack/scripts/update-release-tracker.sh &> /dev/null; then
-        cp $GITHUB_WORKSPACE/hack/scripts/update-release-tracker/community.sh hack/scripts/update-release-tracker.sh
-    fi
-    if grep -q "AppsCode-Free-Trial" hack/scripts/update-release-tracker.sh &> /dev/null; then
-        cp $GITHUB_WORKSPACE/hack/scripts/update-release-tracker/enterprise.sh hack/scripts/update-release-tracker.sh
-    fi
+    # if grep -q "Apache" hack/scripts/update-release-tracker.sh &> /dev/null; then
+    #     cp $GITHUB_WORKSPACE/hack/scripts/update-release-tracker/apache.sh hack/scripts/update-release-tracker.sh
+    # fi
+    # if grep -q "AppsCode-Community" hack/scripts/update-release-tracker.sh &> /dev/null; then
+    #     cp $GITHUB_WORKSPACE/hack/scripts/update-release-tracker/community.sh hack/scripts/update-release-tracker.sh
+    # fi
+    # if grep -q "AppsCode-Free-Trial" hack/scripts/update-release-tracker.sh &> /dev/null; then
+    #     cp $GITHUB_WORKSPACE/hack/scripts/update-release-tracker/enterprise.sh hack/scripts/update-release-tracker.sh
+    # fi
 
     pushd .github/workflows/
     # update engineerd/setup-kind
