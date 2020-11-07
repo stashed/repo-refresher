@@ -4,11 +4,24 @@
 SCRIPT_ROOT=$(realpath $(dirname "${BASH_SOURCE[0]}"))
 SCRIPT_NAME=$(basename "${BASH_SOURCE[0]}")
 
-GITHUB_USER=${GITHUB_USER:-1gtm}
-PR_BRANCH=generic-repo-refresher # -$(date +%s)
-COMMIT_MSG="Update repository config"
+OLD_VER=0.10.0
+NEW_VER=0.11.0
 
-REPO_ROOT=/tmp/generic-repo-refresher
+GITHUB_USER=${GITHUB_USER:-1gtm}
+PR_BRANCH=stash-updater # -$(date +%s)
+COMMIT_MSG="Use restic ${NEW_VER}"
+
+REPO_ROOT=/tmp/stash-updater
+
+repo_uptodate() {
+    # gomodfiles=(go.mod go.sum vendor/modules.txt)
+    gomodfiles=(go.sum vendor/modules.txt)
+    changed=($(git diff --name-only))
+    changed+=("${gomodfiles[@]}")
+    # https://stackoverflow.com/a/28161520
+    diff=($(echo ${changed[@]} ${gomodfiles[@]} | tr ' ' '\n' | sort | uniq -u))
+    return ${#diff[@]}
+}
 
 refresh() {
     echo "refreshing repository: $1"
@@ -18,55 +31,17 @@ refresh() {
     git clone --no-tags --no-recurse-submodules --depth=1 https://${GITHUB_USER}:${GITHUB_TOKEN}@$1.git
     cd $(ls -b1)
     git checkout -b $PR_BRANCH
-    sed -i 's/busybox:1.31.1/busybox:latest/g' Makefile
-    sed -i 's/alpine:3.11/alpine:latest/g' Makefile
-    sed -i 's/alpine:3.10/alpine:latest/g' Makefile
-    sed -i 's/debian:stretch/debian:buster/g' Makefile
-    sed -i 's/gcr.io\/distroless\/base/gcr.io\/distroless\/base-debian10/g' Makefile
-    sed -i 's/gcr.io\/distroless\/base-debian10-debian10/gcr.io\/distroless\/base-debian10/g' Makefile
-    sed -i 's/gcr.io\/distroless\/static/gcr.io\/distroless\/static-debian10/g' Makefile
-    sed -i 's/gcr.io\/distroless\/static-debian10-debian10/gcr.io\/distroless\/static-debian10/g' Makefile
-    sed -i 's/chart-testing:v3.0.0-rc.1/chart-testing:v3.0.0/g' Makefile
-    sed -i 's/?=\ 1.14/?=\ 1.15/g' Makefile
-    rm -rf hack/kubernetes/storageclass
-    if test -f "hack/kubernetes/kind.yaml"; then
-        cp $GITHUB_WORKSPACE/kind.yaml hack/kubernetes/kind.yaml
-    fi
-
-    # if grep -q "Apache" hack/scripts/update-release-tracker.sh &> /dev/null; then
-    #     cp $GITHUB_WORKSPACE/hack/scripts/update-release-tracker/apache.sh hack/scripts/update-release-tracker.sh
-    # fi
-    # if grep -q "AppsCode-Community" hack/scripts/update-release-tracker.sh &> /dev/null; then
-    #     cp $GITHUB_WORKSPACE/hack/scripts/update-release-tracker/community.sh hack/scripts/update-release-tracker.sh
-    # fi
-    # if grep -q "AppsCode-Free-Trial" hack/scripts/update-release-tracker.sh &> /dev/null; then
-    #     cp $GITHUB_WORKSPACE/hack/scripts/update-release-tracker/enterprise.sh hack/scripts/update-release-tracker.sh
-    # fi
-
-    pushd .github/workflows/
-    # update engineerd/setup-kind
-    sed -i 's|engineerd/setup-kind@v0.1.0|engineerd/setup-kind@v0.4.0|g' *
-    sed -i 's|engineerd/setup-kind@v0.3.0|engineerd/setup-kind@v0.4.0|g' *
-    sed -i 's|version: v0.7.0|version: v0.9.0|g' *
-    sed -i 's|version: v0.8.1|version: v0.9.0|g' *
-    sed -i 's|\[v1.12.10, v1.13.12, v1.14.10, v1.15.11, v1.16.9, v1.17.5, v1.18.4\]|\[v1.14.10, v1.15.11, v1.16.9, v1.17.5, v1.18.8, v1.19.1\]|g' *
-    sed -i 's|(v1.12.10 v1.14.10 v1.16.9 v1.18.4)|(v1.14.10 v1.16.9 v1.18.8 v1.19.1)|g' *
-    # update GO
-    sed -i 's/Go\ 1.14/Go\ 1.15/g' *
-    sed -i 's/go-version:\ 1.14/go-version:\ 1.15/g' *
-    sed -i 's/go-version:\ ^1.14/go-version:\ ^1.15/g' *
-    sed -i 's|/gh-tools/releases/download/v0.2.8/|/gh-tools/releases/download/v0.2.9/|g' *
-    sed -i 's|/release-automaton/releases/download/v0.0.33/|/release-automaton/releases/download/v0.0.34/|g' *
-    sed -i 's|/hugo-tools/releases/download/v0.2.18/|/hugo-tools/releases/download/v0.2.19/|g' *
-    popd
+    sed -i "s|RESTIC_VER\([[:space:]]*\):= ${OLD_VER}|RESTIC_VER\1:= ${NEW_VER}|g" Makefile
     [ -z "$2" ] || (
         echo "$2"
         $2 || true
+        # always run make fmt incase make gen fmt fails
+        make fmt || true
     )
-    git add --all
-    if git diff --exit-code -s HEAD; then
+    if repo_uptodate; then
         echo "Repository $1 is up-to-date."
     else
+        git add --all
         if [[ "$1" == *"stashed"* ]]; then
             git commit -a -s -m "$COMMIT_MSG" -m "/cherry-pick"
         else
