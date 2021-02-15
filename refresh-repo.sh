@@ -4,8 +4,8 @@
 SCRIPT_ROOT=$(realpath $(dirname "${BASH_SOURCE[0]}"))
 SCRIPT_NAME=$(basename "${BASH_SOURCE[0]}")
 
-OLD_VER=0.10.0
-NEW_VER=0.11.0
+OLD_VER=0.11.0
+NEW_VER=0.12.0
 
 GITHUB_USER=${GITHUB_USER:-1gtm}
 PR_BRANCH=stash-updater # -$(date +%s)
@@ -32,6 +32,7 @@ refresh() {
     cd $(ls -b1)
     git checkout -b $PR_BRANCH
     sed -i "s|RESTIC_VER\([[:space:]]*\):= ${OLD_VER}|RESTIC_VER\1:= ${NEW_VER}|g" Makefile
+    sed -i "s|string{\"stash-enterprise\"}|string{\"stash-enterprise\",\ \"kubedb-ext-stash\"}|g" pkg/root.go
     [ -z "$2" ] || (
         echo "$2"
         $2 || true
