@@ -5,7 +5,7 @@ SCRIPT_ROOT=$(realpath $(dirname "${BASH_SOURCE[0]}"))
 SCRIPT_NAME=$(basename "${BASH_SOURCE[0]}")
 
 OLD_VER=0.12.0
-NEW_VER=v0.12.0-ac.20210727
+NEW_VER=0.12.0-ac.20210727
 
 GITHUB_USER=${GITHUB_USER:-1gtm}
 PR_BRANCH=stash-updater # -$(date +%s)
