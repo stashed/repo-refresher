@@ -5,12 +5,12 @@ SCRIPT_ROOT=$(realpath $(dirname "${BASH_SOURCE[0]}"))
 SCRIPT_NAME=$(basename "${BASH_SOURCE[0]}")
 
 OLD_VER=0.12.0-ac.20210727
-NEW_VER=0.12.0-ac.20210727
+NEW_VER=0.12.1
 
 GITHUB_USER=${GITHUB_USER:-1gtm}
 PR_BRANCH=stash-updater # -$(date +%s)
 # COMMIT_MSG="Use restic ${NEW_VER}"
-COMMIT_MSG="Update dependencies"
+COMMIT_MSG="Use official restic v0.12.1"
 
 REPO_ROOT=/tmp/stash-updater
 
@@ -32,22 +32,25 @@ refresh() {
     git clone --no-tags --no-recurse-submodules --depth=1 https://${GITHUB_USER}:${GITHUB_TOKEN}@$1.git
     cd $(ls -b1)
     git checkout -b $PR_BRANCH
-    sed -i "s|github.com/restic/restic|github.com/stashed/restic|g" Dockerfile.in
-    sed -i "s|github.com/restic/restic|github.com/stashed/restic|g" Dockerfile.dbg
-    sed -i "s|github.com/restic/restic|github.com/stashed/restic|g" Dockerfile.test || true
+    # sed -i "s|github.com/restic/restic|github.com/stashed/restic|g" Dockerfile.in
+    # sed -i "s|github.com/restic/restic|github.com/stashed/restic|g" Dockerfile.dbg
+    # sed -i "s|github.com/restic/restic|github.com/stashed/restic|g" Dockerfile.test || true
+    sed -i "s|github.com/stashed/restic|github.com/restic/restic|g" Dockerfile.in
+    sed -i "s|github.com/stashed/restic|github.com/restic/restic|g" Dockerfile.dbg
+    sed -i "s|github.com/stashed/restic|github.com/restic/restic|g" Dockerfile.test || true
     sed -i "s|RESTIC_VER\([[:space:]]*\):= ${OLD_VER}|RESTIC_VER\1:= ${NEW_VER}|g" Makefile
     sed -i "s|strng{\"stash-enterprise\"}|string{\"stash-enterprise\",\ \"kubedb-ext-stash\"}|g" pkg/root.go
     if [ -f go.mod ]; then
         go mod edit \
-            -require=kmodules.xyz/client-go@54ead9c6225fd51239935aeedbbb61ec85a3e91f \
-            -require=kmodules.xyz/monitoring-agent-api@d00b079c067bbc1a23e898e4fbd10a95f6ca9f0b \
-            -require=kmodules.xyz/webhook-runtime@5c602fd5cf06e13243a079a7cbd5dc50b9059b08 \
-            -require=kmodules.xyz/resource-metadata@ed8d9b48f9162a40f083d31dc94c994dbcb85fc2 \
-            -require=kmodules.xyz/custom-resources@e5a3d2d6c161773e8630bdc5e57e35e0b5330da1 \
-            -require=kmodules.xyz/objectstore-api@df749235585ee17334acaba77bf7eed7b4e91e26 \
+            -require=kmodules.xyz/client-go@15cac6c74063a9893fe295f4f8bd749b00558ca2 \
+            -require=kmodules.xyz/monitoring-agent-api@0323c6034f702a930f63a38e52dd7535b3534622 \
+            -require=kmodules.xyz/webhook-runtime@f6ab57afa7e47c6379d41bfefda37e260e7274c3 \
+            -require=kmodules.xyz/resource-metadata@8f6a3d706da589c610fd36f90a2fd1277bfc45c5 \
+            -require=kmodules.xyz/custom-resources@c63be82e13c05bb79e9d50eaec806f51cdaf333f \
+            -require=kmodules.xyz/objectstore-api@d39859fc2d56e06d4639e1c3ecb36e52d47250ad \
             -require=go.bytebuilders.dev/license-verifier@v0.9.3 \
             -require=go.bytebuilders.dev/license-verifier/kubernetes@v0.9.3 \
-            -require=gomodules.xyz/x@v0.0.7 \
+            -require=gomodules.xyz/x@v0.0.8 \
             -replace=github.com/satori/go.uuid=github.com/gofrs/uuid@v4.0.0+incompatible \
             -replace=helm.sh/helm/v3=github.com/kubepack/helm/v3@v3.6.1-0.20210518225915-c3e0ce48dd1b \
             -replace=k8s.io/apiserver=github.com/kmodules/apiserver@v0.21.2-0.20210716212718-83e5493ac170
