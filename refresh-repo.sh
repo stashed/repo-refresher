@@ -42,7 +42,7 @@ refresh() {
     sed -i "s|strng{\"stash-enterprise\"}|string{\"stash-enterprise\",\ \"kubedb-ext-stash\"}|g" pkg/root.go
     if [ -f go.mod ]; then
         go mod edit \
-            -require=kmodules.xyz/client-go@15cac6c74063a9893fe295f4f8bd749b00558ca2 \
+            -require=kmodules.xyz/client-go@f005c6dfcb323e650d7b4ef61b2588686c2b9f57 \
             -require=kmodules.xyz/monitoring-agent-api@0323c6034f702a930f63a38e52dd7535b3534622 \
             -require=kmodules.xyz/webhook-runtime@f6ab57afa7e47c6379d41bfefda37e260e7274c3 \
             -require=kmodules.xyz/resource-metadata@8f6a3d706da589c610fd36f90a2fd1277bfc45c5 \
