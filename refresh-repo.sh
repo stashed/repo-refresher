@@ -10,7 +10,7 @@ NEW_VER=0.12.1
 GITHUB_USER=${GITHUB_USER:-1gtm}
 PR_BRANCH=stash-updater # -$(date +%s)
 # COMMIT_MSG="Use restic ${NEW_VER}"
-COMMIT_MSG="Use official restic v0.12.1"
+COMMIT_MSG="Log warning if Community License is used with non-demo namespace"
 
 REPO_ROOT=/tmp/stash-updater
 
