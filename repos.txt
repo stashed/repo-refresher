@@ -16,3 +16,4 @@ github.com/stashed/postgres
 github.com/stashed/redis
 github.com/stashed/stash
 github.com/stashed/etcd
+github.com/stashed/nats
