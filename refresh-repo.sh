@@ -42,15 +42,15 @@ refresh() {
     sed -i "s|strng{\"stash-enterprise\"}|string{\"stash-enterprise\",\ \"kubedb-ext-stash\"}|g" pkg/root.go
     if [ -f go.mod ]; then
         go mod edit \
-            -require=kmodules.xyz/client-go@0cf6ea46b0306b255a82f14b00b374027b0e9192 \
-            -require=kmodules.xyz/monitoring-agent-api@38ca075a2dbde85cf48d84b699720925066a5f3a \
-            -require=kmodules.xyz/webhook-runtime@7f73c2ab318a43feb61f11696815d2abdc745af1 \
-            -require=kmodules.xyz/resource-metadata@v0.6.4 \
-            -require=kmodules.xyz/custom-resources@72bd9e8cae6e8ca708e6e716bef12a2f58f60b96 \
-            -require=kmodules.xyz/objectstore-api@fdf68f88ea6e6b92a3c31339128b3551e2bc9742 \
-            -require=go.bytebuilders.dev/license-verifier@v0.9.3 \
-            -require=go.bytebuilders.dev/license-verifier/kubernetes@v0.9.3 \
-            -require=go.bytebuilders.dev/audit@v0.0.11 \
+            -require=kmodules.xyz/client-go@6c471b24a4ea68cb5d69a6b76dc6408daae7fa61 \
+            -require=kmodules.xyz/monitoring-agent-api@520052fe6ff687cf40fe007c10ce180692f3c8bc \
+            -require=kmodules.xyz/webhook-runtime@909a755cc9d1068720bad9907a9b0c488a2d0f92 \
+            -require=kmodules.xyz/resource-metadata@v0.6.7 \
+            -require=kmodules.xyz/custom-resources@3bf3dbd8ac52976bebfe47e91c675ecd4da3b3a3 \
+            -require=kmodules.xyz/objectstore-api@8720be0c9bf72b80e5de43bf65831e997671a490 \
+            -require=go.bytebuilders.dev/license-verifier@v0.9.6 \
+            -require=go.bytebuilders.dev/license-verifier/kubernetes@v0.9.6 \
+            -require=go.bytebuilders.dev/audit@v0.0.13 \
             -require=gomodules.xyz/x@v0.0.8 \
             -replace=github.com/satori/go.uuid=github.com/gomodules/uuid@v4.0.0+incompatible \
             -replace=github.com/dgrijalva/jwt-go=github.com/gomodules/jwt@v3.2.2+incompatible \
