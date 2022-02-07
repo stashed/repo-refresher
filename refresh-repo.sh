@@ -10,7 +10,7 @@ NEW_VER=0.12.1
 GITHUB_USER=${GITHUB_USER:-1gtm}
 PR_BRANCH=stash-updater # -$(date +%s)
 # COMMIT_MSG="Use restic ${NEW_VER}"
-COMMIT_MSG="Fix SiteInfo publishing"
+COMMIT_MSG="Publish GenericResource"
 
 REPO_ROOT=/tmp/stash-updater
 
@@ -42,23 +42,24 @@ refresh() {
     sed -i "s|strng{\"stash-enterprise\"}|string{\"stash-enterprise\",\ \"kubedb-ext-stash\"}|g" pkg/root.go
     if [ -f go.mod ]; then
         go mod edit \
-            -require=kmodules.xyz/client-go@6c471b24a4ea68cb5d69a6b76dc6408daae7fa61 \
-            -require=kmodules.xyz/monitoring-agent-api@520052fe6ff687cf40fe007c10ce180692f3c8bc \
+            -require=kmodules.xyz/client-go@1de48437aaf3867c0cafe186b3d2d5fad6ffeabe \
+            -require=kmodules.xyz/monitoring-agent-api@028e6430395e6ad760aaa337b2e678939f6de3d3 \
             -require=kmodules.xyz/webhook-runtime@909a755cc9d1068720bad9907a9b0c488a2d0f92 \
-            -require=kmodules.xyz/resource-metadata@v0.6.7 \
-            -require=kmodules.xyz/custom-resources@3bf3dbd8ac52976bebfe47e91c675ecd4da3b3a3 \
-            -require=kmodules.xyz/objectstore-api@8720be0c9bf72b80e5de43bf65831e997671a490 \
+            -require=kmodules.xyz/resource-metadata@v0.9.3 \
+            -require=kmodules.xyz/custom-resources@be014631db0c78fd594f74647f7ea78d94a01b55 \
+            -require=kmodules.xyz/objectstore-api@3271069de43e767f91aca914d44ad335a9abc58c \
+            -require=kmodules.xyz/offshoot-api@cc7187e020cfd9931b5e97efcd04ec4de7a998da \
             -require=go.bytebuilders.dev/license-verifier@v0.9.7 \
             -require=go.bytebuilders.dev/license-verifier/kubernetes@v0.9.7 \
-            -require=go.bytebuilders.dev/audit@v0.0.14 \
-            -require=gomodules.xyz/x@v0.0.8 \
+            -require=go.bytebuilders.dev/audit@v0.0.18 \
+            -require=gomodules.xyz/x@v0.0.10 \
             -require=gomodules.xyz/logs@v0.0.6 \
             -replace=github.com/satori/go.uuid=github.com/gomodules/uuid@v4.0.0+incompatible \
             -replace=github.com/dgrijalva/jwt-go=github.com/gomodules/jwt@v3.2.2+incompatible \
             -replace=github.com/golang-jwt/jwt=github.com/golang-jwt/jwt@v3.2.2+incompatible \
             -replace=github.com/form3tech-oss/jwt-go=github.com/form3tech-oss/jwt-go@v3.2.5+incompatible \
             -replace=helm.sh/helm/v3=github.com/kubepack/helm/v3@v3.6.1-0.20210518225915-c3e0ce48dd1b \
-            -replace=k8s.io/apiserver=github.com/kmodules/apiserver@v0.21.2-0.20210716212718-83e5493ac170
+            -replace=k8s.io/apiserver=github.com/kmodules/apiserver@v0.21.2-0.20220112070009-e3f6e88991d9
         go mod tidy
         go mod vendor
     fi
