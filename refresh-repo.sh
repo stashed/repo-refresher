@@ -10,7 +10,7 @@ NEW_VER=0.12.1
 GITHUB_USER=${GITHUB_USER:-1gtm}
 PR_BRANCH=stash-updater # -$(date +%s)
 # COMMIT_MSG="Use restic ${NEW_VER}"
-COMMIT_MSG="Publish GenericResource"
+COMMIT_MSG="Update SiteInfo"
 
 REPO_ROOT=/tmp/stash-updater
 
@@ -45,13 +45,13 @@ refresh() {
             -require=kmodules.xyz/client-go@1de48437aaf3867c0cafe186b3d2d5fad6ffeabe \
             -require=kmodules.xyz/monitoring-agent-api@028e6430395e6ad760aaa337b2e678939f6de3d3 \
             -require=kmodules.xyz/webhook-runtime@909a755cc9d1068720bad9907a9b0c488a2d0f92 \
-            -require=kmodules.xyz/resource-metadata@v0.9.3 \
-            -require=kmodules.xyz/custom-resources@be014631db0c78fd594f74647f7ea78d94a01b55 \
+            -require=kmodules.xyz/resource-metadata@v0.9.4 \
+            -require=kmodules.xyz/custom-resources@61b298634e43955f3e93c3deefda632c9b0fb5dd \
             -require=kmodules.xyz/objectstore-api@3271069de43e767f91aca914d44ad335a9abc58c \
             -require=kmodules.xyz/offshoot-api@cc7187e020cfd9931b5e97efcd04ec4de7a998da \
             -require=go.bytebuilders.dev/license-verifier@v0.9.7 \
             -require=go.bytebuilders.dev/license-verifier/kubernetes@v0.9.7 \
-            -require=go.bytebuilders.dev/audit@v0.0.18 \
+            -require=go.bytebuilders.dev/audit@v0.0.19 \
             -require=gomodules.xyz/x@v0.0.10 \
             -require=gomodules.xyz/logs@v0.0.6 \
             -replace=github.com/satori/go.uuid=github.com/gomodules/uuid@v4.0.0+incompatible \
