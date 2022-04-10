@@ -4,13 +4,13 @@
 SCRIPT_ROOT=$(realpath $(dirname "${BASH_SOURCE[0]}"))
 SCRIPT_NAME=$(basename "${BASH_SOURCE[0]}")
 
-OLD_VER=0.12.1
-NEW_VER=0.13.0
+OLD_VER=0.13.0
+NEW_VER=0.13.1
 
 GITHUB_USER=${GITHUB_USER:-1gtm}
 PR_BRANCH=stash-updater # -$(date +%s)
 # COMMIT_MSG="Use restic ${NEW_VER}"
-COMMIT_MSG="Use restic 0.13.0"
+COMMIT_MSG="Use restic 0.13.1"
 
 REPO_ROOT=/tmp/stash-updater
 
@@ -42,13 +42,13 @@ refresh() {
     sed -i "s|strng{\"stash-enterprise\"}|string{\"stash-enterprise\",\ \"kubedb-ext-stash\"}|g" pkg/root.go
     if [ -f go.mod ]; then
         go mod edit \
-            -require=kmodules.xyz/client-go@2a6d5a5784f241725e193988fd238255d737569f \
+            -require=kmodules.xyz/client-go@af7b092cfac553478219d9f4662c5cab757fde12 \
             -require=kmodules.xyz/monitoring-agent-api@0290ed5b75e16eb2d3a6066851ae5570d101b6f8 \
             -require=kmodules.xyz/webhook-runtime@0ddfc9e4c2214ebcc4acd9e33d2f8e9880de1428 \
-            -require=kmodules.xyz/resource-metadata@v0.10.12 \
+            -require=kmodules.xyz/resource-metadata@v0.10.15 \
             -require=kmodules.xyz/custom-resources@7beb809b1f5eb5dd1bbe61494513f3ccc5fcd9a5 \
             -require=kmodules.xyz/objectstore-api@f1d593d0a778b3f502dfff9cdcb759ac5e55e6a4 \
-            -require=kmodules.xyz/offshoot-api@3b0fd2ea77d65eaad436940b8d21abbaf2421922 \
+            -require=kmodules.xyz/offshoot-api@c076b2bcb0f89f707ef2329fc1c25d5a60937c11 \
             -require=go.bytebuilders.dev/license-verifier@v0.9.7 \
             -require=go.bytebuilders.dev/license-verifier/kubernetes@v0.9.7 \
             -require=go.bytebuilders.dev/audit@v0.0.19 \
