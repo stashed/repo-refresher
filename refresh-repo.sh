@@ -10,7 +10,7 @@ NEW_VER=0.13.1
 GITHUB_USER=${GITHUB_USER:-1gtm}
 PR_BRANCH=stash-updater # -$(date +%s)
 # COMMIT_MSG="Use restic ${NEW_VER}"
-COMMIT_MSG="Use restic 0.13.1"
+COMMIT_MSG="Update nats client to v1.15.0"
 
 REPO_ROOT=/tmp/stash-updater
 
@@ -41,18 +41,23 @@ refresh() {
     sed -i "s|RESTIC_VER\([[:space:]]*\):= ${OLD_VER}|RESTIC_VER\1:= ${NEW_VER}|g" Makefile
     sed -i "s|strng{\"stash-enterprise\"}|string{\"stash-enterprise\",\ \"kubedb-ext-stash\"}|g" pkg/root.go
     if [ -f go.mod ]; then
+        sed -i "s|go 1.12|go 1.17|g" go.mod
+        sed -i "s|go 1.13|go 1.17|g" go.mod
+        sed -i "s|go 1.14|go 1.17|g" go.mod
+        sed -i "s|go 1.15|go 1.17|g" go.mod
+        sed -i "s|go 1.16|go 1.17|g" go.mod
         go mod edit \
-            -require=kmodules.xyz/client-go@af7b092cfac553478219d9f4662c5cab757fde12 \
+            -require=kmodules.xyz/client-go@36281a681909309a3323ba55cd20c59cf615e7df \
             -require=kmodules.xyz/monitoring-agent-api@0290ed5b75e16eb2d3a6066851ae5570d101b6f8 \
             -require=kmodules.xyz/webhook-runtime@0ddfc9e4c2214ebcc4acd9e33d2f8e9880de1428 \
             -require=kmodules.xyz/resource-metadata@v0.10.15 \
-            -require=kmodules.xyz/custom-resources@7beb809b1f5eb5dd1bbe61494513f3ccc5fcd9a5 \
+            -require=kmodules.xyz/custom-resources@237eae1d7ddd7dd2b5384b5f306aa489ef6c49ef \
             -require=kmodules.xyz/objectstore-api@f1d593d0a778b3f502dfff9cdcb759ac5e55e6a4 \
-            -require=kmodules.xyz/offshoot-api@c076b2bcb0f89f707ef2329fc1c25d5a60937c11 \
+            -require=kmodules.xyz/offshoot-api@fefb02c26514eb8cb52b88697d0e6104f2241caf \
             -require=go.bytebuilders.dev/license-verifier@v0.9.7 \
             -require=go.bytebuilders.dev/license-verifier/kubernetes@v0.9.7 \
-            -require=go.bytebuilders.dev/audit@v0.0.19 \
-            -require=gomodules.xyz/x@v0.0.13 \
+            -require=go.bytebuilders.dev/audit@v0.0.20 \
+            -require=gomodules.xyz/x@v0.0.14 \
             -require=gomodules.xyz/logs@v0.0.6 \
             -replace=github.com/satori/go.uuid=github.com/gomodules/uuid@v4.0.0+incompatible \
             -replace=github.com/dgrijalva/jwt-go=github.com/gomodules/jwt@v3.2.2+incompatible \
