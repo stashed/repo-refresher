@@ -4,13 +4,13 @@
 SCRIPT_ROOT=$(realpath $(dirname "${BASH_SOURCE[0]}"))
 SCRIPT_NAME=$(basename "${BASH_SOURCE[0]}")
 
-OLD_VER=0.13.1
-NEW_VER=0.14.0
+OLD_VER=0.14.0
+NEW_VER=0.13.1
 
 GITHUB_USER=${GITHUB_USER:-1gtm}
-PR_BRANCH=r0140 # -$(date +%s)
+PR_BRANCH=rv0131 # -$(date +%s)
 # COMMIT_MSG="Use restic ${NEW_VER}"
-COMMIT_MSG="Use restic 0.14.0"
+COMMIT_MSG="Revert to restic 0.13.1"
 
 REPO_ROOT=/tmp/stash-updater
 
