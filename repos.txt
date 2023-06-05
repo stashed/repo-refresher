@@ -1,13 +1,8 @@
 stashed/apimachinery
-stashed/stash
-stashed/enterprise
-stashed/bundles
-stashed/catalog
-stashed/CHANGELOG
 stashed/cli
-stashed/docs
+stashed/crd-installer
 stashed/elasticsearch
-stashed/etcd
+stashed/enterprise
 stashed/installer
 stashed/kubedump
 stashed/mariadb
@@ -17,3 +12,6 @@ stashed/nats
 stashed/percona-xtradb
 stashed/postgres
 stashed/redis
+stashed/stash
+stashed/ui-server
+stashed/vault
