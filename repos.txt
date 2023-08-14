@@ -1,4 +1,3 @@
-stashed/apimachinery
 stashed/cli
 stashed/crd-installer
 stashed/elasticsearch

@@ -5,8 +5,8 @@ SCRIPT_ROOT=$(realpath $(dirname "${BASH_SOURCE[0]}"))
 SCRIPT_NAME=$(basename "${BASH_SOURCE[0]}")
 
 GITHUB_USER=${GITHUB_USER:-1gtm}
-PR_BRANCH=kdbdeps # -$(date +%s)
-COMMIT_MSG="Update license verifier"
+PR_BRANCH=g21dep # -$(date +%s)
+COMMIT_MSG="Update deps"
 
 REPO_ROOT=/tmp/licup
 
@@ -34,13 +34,13 @@ refresh() {
 
     if [ -f go.mod ]; then
         go mod edit \
-            -require=kmodules.xyz/client-go@v0.25.23 \
+            -require=stash.appscode.dev/apimachinery@fcb8a9106d3c7cc786f9360fe0c05e27038e291b \
+            -require=kmodules.xyz/client-go@v0.25.29 \
+            -require=gomodules.xyz/logs@v0.0.7 \
             -require=gomodules.xyz/password-generator@v0.2.9 \
             -require=go.bytebuilders.dev/license-verifier@v0.13.2 \
             -require=go.bytebuilders.dev/license-verifier/kubernetes@v0.13.2 \
-            -require=go.bytebuilders.dev/audit@v0.0.27 \
-            -require=github.com/redis/go-redis/v9@v9.0.5 \
-            -require=github.com/elastic/go-elasticsearch/v7@v7.15.1
+            -require=go.bytebuilders.dev/audit@v0.0.27
 
         # sed -i 's|NewLicenseEnforcer|MustLicenseEnforcer|g' `grep 'NewLicenseEnforcer' -rl *`
         go mod tidy
