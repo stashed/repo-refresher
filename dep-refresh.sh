@@ -37,6 +37,7 @@ refresh() {
     sed -i 's/goconst,//g' Makefile
     sed -i 's|gcr.io/distroless/static-debian11|gcr.io/distroless/static-debian12|g' Makefile
     sed -i 's|debian:bullseye|debian:bookworm|g' Makefile
+    sed -i 's|?= appscode/golang-dev:|?= ghcr.io/appscode/golang-dev:|g' Makefile
 
     pushd .github/workflows/ && {
         # update GO
