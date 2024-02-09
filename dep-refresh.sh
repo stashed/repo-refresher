@@ -10,7 +10,7 @@ COMMIT_MSG="Update deps"
 
 REPO_ROOT=/tmp/stash-repo-refresher
 
-API_REF=${API_REF:-152e1d41ddffdb368c9840d60b18f60a99b249d9}
+API_REF=${API_REF:-1fb8e337}
 
 repo_uptodate() {
     # gomodfiles=(go.mod go.sum vendor/modules.txt)
