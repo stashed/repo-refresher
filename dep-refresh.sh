@@ -5,12 +5,12 @@ SCRIPT_ROOT=$(realpath $(dirname "${BASH_SOURCE[0]}"))
 SCRIPT_NAME=$(basename "${BASH_SOURCE[0]}")
 
 GITHUB_USER=${GITHUB_USER:-1gtm}
-PR_BRANCH=k129-auto # -$(date +%s)
-COMMIT_MSG="Use k8s 1.29 client libs"
+PR_BRANCH=ctrl2 # -$(date +%s)
+COMMIT_MSG="Update deps"
 
-REPO_ROOT=/tmp/kubedb-repo-refresher
+REPO_ROOT=/tmp/stash-repo-refresher
 
-API_REF=${API_REF:-ef308633}
+API_REF=${API_REF:-152e1d41ddffdb368c9840d60b18f60a99b249d9}
 
 repo_uptodate() {
     # gomodfiles=(go.mod go.sum vendor/modules.txt)
@@ -55,17 +55,17 @@ module stash.appscode.dev/$name
 EOF
         go mod edit \
             -require=stash.appscode.dev/apimachinery@${API_REF} \
-            -require=kubedb.dev/apimachinery@032b27211164bc446a559654daf8182453ac8896 \
-            -require=kubedb.dev/db-client-go@v0.0.8 \
+            -require=kubedb.dev/apimachinery@v0.41.0 \
+            -require=kubedb.dev/db-client-go@v0.0.10 \
             -require=gomodules.xyz/logs@v0.0.7 \
-            -require=kmodules.xyz/client-go@v0.29.4 \
-            -require=kmodules.xyz/resource-metadata@v0.18.1 \
+            -require=kmodules.xyz/client-go@v0.29.6 \
+            -require=kmodules.xyz/resource-metadata@01f2d51a9f27c0f043e7d25f86a34fec97363b0b \
             -require=kmodules.xyz/go-containerregistry@v0.0.12 \
             -require=gomodules.xyz/password-generator@v0.2.9 \
             -require=go.bytebuilders.dev/license-verifier@v0.13.4 \
             -require=go.bytebuilders.dev/license-verifier/kubernetes@v0.13.4 \
             -require=go.bytebuilders.dev/license-proxyserver@31122ab825027d2495c9320b63d99660f1ca56be \
-            -require=go.bytebuilders.dev/audit@3ff33160c6f02f6151e59cdd44dd50a347c02ba0 \
+            -require=go.bytebuilders.dev/audit@9cf3195 \
             -require=github.com/cert-manager/cert-manager@v1.13.3 \
             -require=github.com/elastic/go-elasticsearch/v7@v7.15.1 \
             -require=go.mongodb.org/mongo-driver@v1.10.2 \
@@ -73,7 +73,9 @@ EOF
             -replace=sigs.k8s.io/controller-runtime=github.com/kmodules/controller-runtime@ac-0.17.0 \
             -replace=github.com/imdario/mergo=github.com/imdario/mergo@v0.3.6 \
             -replace=k8s.io/apiserver=github.com/kmodules/apiserver@ac-1.29.0 \
-            -replace=k8s.io/kubernetes=github.com/kmodules/kubernetes@ac-1.29.0
+            -replace=k8s.io/kubernetes=github.com/kmodules/kubernetes@ac-1.29.0 \
+            -require=github.com/docker/docker@v24.0.7+incompatible \
+            -require=github.com/docker/cli@v24.0.7+incompatible
 
         # sed -i 's|NewLicenseEnforcer|MustLicenseEnforcer|g' `grep 'NewLicenseEnforcer' -rl *`
         go mod tidy
