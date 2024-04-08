@@ -1,4 +1,7 @@
+stashed/apimachinery
+stashed/bundles
 stashed/cli
+stashed/docs
 stashed/elasticsearch
 stashed/enterprise
 stashed/etcd
